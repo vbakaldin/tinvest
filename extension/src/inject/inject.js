@@ -7,10 +7,10 @@ function etTimeToMsc(time){
 	}
 	var hours = Number(time.match(/^(\d+)/)[1]);
 	var minutes = Number(time.match(/:(\d+)/)[1]);
-	var AMPM = time.match(/\s(.*)$/)[1];
+	var AMPM = time.match(/\s(.*)\s/)[1];
 	if(AMPM == "PM" && hours<12) hours = hours+12;
 	if(AMPM == "AM" && hours==12) hours = hours-12;
-	hours=hours+7
+	hours=(hours+7)%24
 	var sHours = hours.toString();
 	var sMinutes = minutes.toString();
 	if(hours<10) sHours = "0" + sHours;
