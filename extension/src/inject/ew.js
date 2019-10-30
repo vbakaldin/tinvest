@@ -65,8 +65,6 @@ window.onload=function(){
 		var e = e || window.event, el = e.target || el.srcElement;
 		graph_block.style.display='none'
 	};
-
-
 }
 
 
