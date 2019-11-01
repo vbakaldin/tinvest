@@ -1,5 +1,4 @@
 window.onload=function(){
-    console.log('hello')
     document.onkeypress=function(e){
         var e = e || window.event, input = e.target || el.srcElement;
         if(e.keyCode==13 && input.tagName=='INPUT' && input.classList.contains('pt-input')){
@@ -12,5 +11,4 @@ window.onload=function(){
             }
         }
     };
-
 }

@@ -25,7 +25,7 @@
       ],
       "js": [
         "src/inject/ew.js",
-        "src/inject/tinkoff.js"
+        "src/inject/tinkoff_terminal.js"
       ]
     }
   ]
