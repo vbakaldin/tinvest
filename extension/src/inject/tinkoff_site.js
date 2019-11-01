@@ -78,14 +78,16 @@ async function real_revenue() {
                 return sum;
             }, 0)
 
-            history_result = Math.round(history_result);
-            result = info.payload.positionTinkoff.currentAmount.value - Math.abs(history_result)
+            result = Math.round(history_result);
+            if(info.payload.positionTinkoff) {
+                result = info.payload.positionTinkoff.currentAmount.value - Math.abs(result)
+            }
             result = parseFloat(result).toFixed(2);
 
 
             html="<div class='tinvest-block'>";
             html += '<div><b class="real_revenue">Реальный заработок: ' + result + '</b></div>';
-            if(result<0){
+            if(result<0 && info.payload.positionTinkoff){
                 need_earn=needEarn(result,info.payload.positionTinkoff)
                 html+='<div><b class="need_earn">Выход в ноль при: ' + need_earn + '</b></div>';
             }
