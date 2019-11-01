@@ -1,5 +1,5 @@
 async function real_revenue() {
-    result=0
+    result = 0
 
     function getCookie(name) {
         let matches = document.cookie.match(new RegExp(
@@ -46,44 +46,65 @@ async function real_revenue() {
         return await response.json();
     }
 
+    function needEarn(revenue,position_tinkoff){
+        count=info.payload.positionTinkoff.currentBalance
+        avg_price=parseFloat(info.payload.positionTinkoff.averagePositionPrice.value)
+        currency=info.payload.positionTinkoff.averagePositionPrice.currency
+
+        revenue=Math.abs(revenue);
+        need_earn_money=parseFloat(parseFloat(revenue/count).toFixed(2));
+        percent=avg_price/100;
+        need_earn_percent=parseFloat(need_earn_money/percent).toFixed(2);
+
+        return (avg_price+need_earn_money)+"("+"+"+need_earn_money+currency+"/"+need_earn_percent+"%)"
+    }
+
 // current_ticker=Object.keys(data.investTrade.symbolUserInfo)[0];
     regex = /\(([A-Z\.]+)\):/m
-    ticker_regexp=regex.exec(document.querySelector("meta[property='og:title']").content)
-    if(ticker_regexp!==null) {
+    ticker_regexp = regex.exec(document.querySelector("meta[property='og:title']").content)
+    //на странице есть тикер, значит скорее всего это страница акции
+    if (ticker_regexp !== null) {
         current_ticker = ticker_regexp[1]
         history_result = await getHistory(current_ticker);
         info = await getInfo(current_ticker)
 
-        history_result = history_result.payload.items.reduce(function (sum, item) {
-            if (item.status == 'done') {
-                //console.log(item.payment,(item.commission||0))
-                return sum + item.payment + (item.commission || 0);
-            }
-            return sum;
-        }, 0)
-
-        result = Math.round(history_result);
-
         if (info.payload.hasEvents) {
-            result = info.payload.positionTinkoff.currentAmount.value - Math.abs(result)
-        }
-        result = parseFloat(result).toFixed(2);
+            //перебираем прошлые сделки
+            history_result = history_result.payload.items.reduce(function (sum, item) {
+                if (item.status == 'done') {
+                    //console.log(item.payment,(item.commission||0))
+                    return sum + item.payment + (item.commission || 0);
+                }
+                return sum;
+            }, 0)
 
-        html = '<div><b class="real_revenue">Реальный заработок: ' + result + '</b></div>';
+            history_result = Math.round(history_result);
+            result = info.payload.positionTinkoff.currentAmount.value - Math.abs(history_result)
+            result = parseFloat(result).toFixed(2);
 
 
-        b_real = document.querySelector("b.real_revenue")
-        if (b_real) {
-            b_real.outerHTML = html
-        } else {
-            document.querySelector("h1[data-qa-file^=SecurityHeader]").insertAdjacentHTML('afterend', html)
+            html="<div class='tinvest-block'>";
+            html += '<div><b class="real_revenue">Реальный заработок: ' + result + '</b></div>';
+            if(result<0){
+                need_earn=needEarn(result,info.payload.positionTinkoff)
+                html+='<div><b class="need_earn">Выход в ноль при: ' + need_earn + '</b></div>';
+            }
+            html+="</div>"
+
+            tinvest_block = document.querySelector("div.tinvest-block")
+            if (tinvest_block) {
+                tinvest_block.outerHTML = html
+            } else {
+                document.querySelector("h1[data-qa-file^=SecurityHeader]").insertAdjacentHTML('afterend', html)
+            }
+
         }
     }
 
-    if(result<0){
+    if (result < 0) {
         document.body.classList.remove('good-revenue');
         document.body.classList.add('bad-revenue');
-    } else if(result>0) {
+    } else if (result > 0) {
         document.body.classList.add('good-revenue');
         document.body.classList.remove('bad-revenue');
     } else {
