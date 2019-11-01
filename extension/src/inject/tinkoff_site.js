@@ -1,4 +1,4 @@
-async function real_revenue(){
+async function real_revenue() {
     function getCookie(name) {
         let matches = document.cookie.match(new RegExp(
             "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -45,7 +45,7 @@ async function real_revenue(){
     }
 
 // current_ticker=Object.keys(data.investTrade.symbolUserInfo)[0];
-    regex= /\(([A-Z\.]+)\):/m
+    regex = /\(([A-Z\.]+)\):/m
     current_ticker = regex.exec(document.querySelector("meta[property='og:title']").content)[1]
     history_result = await getHistory(current_ticker);
     info = await getInfo(current_ticker)
@@ -65,16 +65,21 @@ async function real_revenue(){
     }
     result = parseFloat(result).toFixed(2);
 
-    html='<b class="real_revenue">Реальный заработок: ' + result + '</b>';
-    b_real=document.querySelector("b.real_revenue")
-    if(b_real){
-        b_real.outerHTML=html
+    html = '<b class="real_revenue">Реальный заработок: ' + result + '</b>';
+    b_real = document.querySelector("b.real_revenue")
+    if (b_real) {
+        b_real.outerHTML = html
     } else {
         document.querySelector("h1[data-qa-file=SecurityHeaderDesktopPure]").insertAdjacentHTML('afterend', html)
     }
- }
-    real_revenue()
-    setInterval(async function(){
+}
+
+if (window.location.host == 'www.tinkoff.ru') {
+    real_revenue();
+    setInterval(async function () {
         await real_revenue()
     }, 2500);
+} else {
+    console.log('not tinkoff')
+}
 
