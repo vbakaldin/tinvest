@@ -56,8 +56,8 @@ if (window.location.host == 'www.earningswhispers.com') {
             url = getGraphUrl(el.textContent)
             img_block.src = url
             graph_block.style.display = 'block'
-            graph_block.style.top = (e.screenY - 100) + "px"
-            graph_block.style.left = (e.screenX + 50) + "px"
+            graph_block.style.top = (e.clientY -50) + "px"
+            graph_block.style.left = (e.clientX + 50) + "px"
         }
     };
 
