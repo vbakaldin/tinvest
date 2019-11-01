@@ -1,6 +1,6 @@
 {
   "name": "Tinvest",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "manifest_version": 2,
   "description": "",
   "homepage_url": "https://t.me/million_fonda",
@@ -21,11 +21,13 @@
     {
       "matches": [
         "https://www.earningswhispers.com/*",
-        "https://www.tinkoff.ru/invest-terminal/*"
+        "https://www.tinkoff.ru/invest-terminal/*",
+        "https://www.tinkoff.ru/invest/*"
       ],
       "js": [
         "src/inject/ew.js",
-        "src/inject/tinkoff_terminal.js"
+        "src/inject/tinkoff_terminal.js",
+        "src/inject/tinkoff_site.js"
       ]
     }
   ]
