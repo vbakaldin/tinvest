@@ -1,12 +1,12 @@
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
 async function real_revenue() {
     result = 0
+
+    function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
 
     async function getHistory(ticker) {
         let data = {
@@ -115,69 +115,6 @@ async function real_revenue() {
     }
 }
 
-function exportToCsv() {
-    btn_tpl = document.querySelector('a[href="/invest/broker_account/about/"]')
-    if (!btn_tpl || document.querySelector("span.tinvest-export")) {
-        return false
-    }
-    btn = btn_tpl.parentElement.cloneNode(true);
-    btn.querySelector('a').href = "#"
-    btn.querySelector('a span').classList.add('tinvest-export')
-    btn.querySelector('span span').textContent = "Экспорт в CSV"
-    btn_tpl.parentElement.insertAdjacentHTML('afterend', btn.outerHTML)
-
-    document.onclick = async function (e) {
-        var e = e || window.event, el = e.target || el.srcElement;
-
-        if (el.classList.contains('tinvest-export') || el.parentElement.classList.contains('tinvest-export')) {
-            let data = {
-                "stocksSort": "ByName",
-                "stocksSortOrder": "Asc",
-                "bondsSort": "ByName",
-                "bondsSortOrder": "Asc",
-                "etfsSort": "ByName",
-                "etfsSortOrder": "Asc",
-                "brokerAccountType": "Tinkoff",
-                "currency": "RUB"
-            };
-
-            let s_id = getCookie('psid')
-            let response = await fetch(' https://api.tinkoff.ru/trading/portfolio/purchased_securities?tinvest&sessionId=' + s_id, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(data)
-            });
-
-            result = (await response.json()).payload.data;
-            csv_arr = [['тикер', 'количество', 'валюта', 'ср.цена', 'цена', 'стоимость', 'доходность', 'доходность %']];
-            result.forEach(function (item) {
-                if (item.securityType == 'Stock') {
-                    csv_arr.push([item.ticker, item.currentBalance, item.averagePositionPrice.currency, item.averagePositionPrice.value, item.currentPrice.value, item.currentAmount.value, item.expectedYield.value, item.expectedYieldRelative])
-                }
-            })
-
-            let csvContent_header = "data:text/csv;charset=utf-8,%EF%BB%BF";
-
-            csvContent = ''
-            csv_arr.forEach(function (rowArray) {
-                let row = rowArray.join(";").replace(/\./g, ',');
-                csvContent += row + "\r\n";
-            });
-            var encodedUri = encodeURI(csvContent);
-            var link = document.createElement("a");
-            link.setAttribute("href", csvContent_header + encodedUri);
-            date = new Date();
-            date_format = date.getDate() + "." + date.getMonth() + "." + date.getFullYear()
-            link.setAttribute("download", "stocks_" + date_format + ".csv");
-            document.body.appendChild(link);
-
-            link.click();
-        }
-    };
-}
-
 if (window.location.host == 'www.tinkoff.ru') {
     style_arr = [
         '.bad-revenue{background-color: rgba(255, 0, 0, 0.05);}',
@@ -188,12 +125,11 @@ if (window.location.host == 'www.tinkoff.ru') {
         document.body.insertAdjacentHTML("afterbegin", "<style>" + style + "</style>")
     })
 
-    exportToCsv();
+
     real_revenue();
     setInterval(async function () {
-        await real_revenue();
-        exportToCsv();
-    }, 2000);
+        await real_revenue()
+    }, 2500);
 } else {
     console.log('not tinkoff')
 }
