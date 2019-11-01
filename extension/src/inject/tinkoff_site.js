@@ -5,6 +5,7 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+
 async function real_revenue() {
     result = 0
 
