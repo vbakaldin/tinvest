@@ -170,7 +170,7 @@ function exportToCsv() {
             var link = document.createElement("a");
             link.setAttribute("href", csvContent_header + encodedUri);
             date = new Date();
-            date_format = date.getDate() + "." + date.getMonth() + "." + date.getFullYear()
+            date_format = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear()
             link.setAttribute("download", "stocks_" + date_format + ".csv");
             document.body.appendChild(link);
 
