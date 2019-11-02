@@ -5,6 +5,9 @@ function etTimeToMsc(time) {
     if (time == 'AMC') {
         return 'после открытия';
     }
+    if (time == 'DMH') {
+        return time;
+    }
     var hours = Number(time.match(/^(\d+)/)[1]);
     var minutes = Number(time.match(/:(\d+)/)[1]);
     var AMPM = time.match(/\s(.*)\s/)[1];
