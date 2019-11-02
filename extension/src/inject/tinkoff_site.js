@@ -152,7 +152,7 @@ function exportToCsv() {
             });
 
             result = (await response.json()).payload.data;
-            csv_arr = [['тикер', 'количество', 'валюта', 'ср.цена', 'цена', 'стоимость', 'доходность', 'доходность %']];
+            csv_arr = [['Тикер', 'Количество', 'Валюта', 'Средняя цена', 'Текущая цена', 'Общая стоимость', 'Доходность', 'Доходность в %']];
             result.forEach(function (item) {
                 if (item.securityType == 'Stock') {
                     csv_arr.push([item.ticker, item.currentBalance, item.averagePositionPrice.currency, item.averagePositionPrice.value, item.currentPrice.value, item.currentAmount.value, item.expectedYield.value, item.expectedYieldRelative])
