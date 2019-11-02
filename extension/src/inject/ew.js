@@ -47,7 +47,7 @@ style_arr = [
     '@media only screen and (min-width: 48em) {.listview .estimate {left: 400px;} .listview .time {left: 270px;}}',
     'div#graph_block {position:fixed;border: 3px solid black;top: 554px;left: 204px;z-index: 1;}',
     '.unselectedoptions { width: auto !important}',
-    '.tinvest-tinkoff-ticker {color: #d8d800 !important;}'
+    '.tinvest-tinkoff-ticker {color: #ffff00 !important; text-shadow: 0 0 2px black;}'
 ];
 
 
