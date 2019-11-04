@@ -89,7 +89,7 @@ async function getBrokerAccounts() {
 }
 
 
-async function getPurchaisedSecurities(accountname) {
+async function getPurchasedSecurities(accountname) {
 	let data = {
 		"stocksSort": "ByName",
 		"stocksSortOrder": "Asc",
@@ -357,7 +357,7 @@ async function exportToCsv() {
 				//console.log("Clicked.."+classname);
 				foundclass=true;
 				accountname="Tinkoff";
-				result=await processExporttoCsv(accountname);
+                result = await processExportToCsv(accountname);
 			};
 			classnametoFind='tinvest-export-Iis';
 			if (el.classList.contains(classnametoFind) || el.parentElement.classList.contains(classnametoFind)) {
@@ -365,7 +365,7 @@ async function exportToCsv() {
 				//console.log("Clicked.."+classname);
 				foundclass=true;
 				accountname='TinkoffIis';
-				result=await processExporttoCsv(accountname);
+                result = await processExportToCsv(accountname);
 			};
 			classnametoFind='tinvest-export-journal';
 			if (el.classList.contains(classnametoFind) || el.parentElement.classList.contains(classnametoFind)) {
@@ -379,9 +379,9 @@ async function exportToCsv() {
 	});
 }
 
-async function processExporttoCsv(accountname){
+async function processExportToCsv(accountname) {
 
-            result = (await getPurchaisedSecurities(accountname)).payload.data;
+    result = (await getPurchasedSecurities(accountname)).payload.data;
             csv_arr = [['Тикер', 'Количество', 'Валюта', 'Средняя цена', 'Текущая цена', 'Общая стоимость', 'Доходность', 'Доходность в %','Реальная доходность','Выход в Ноль при цене']];
 			  for (const item of result) {
                 if (item.securityType == 'Stock') {  
@@ -416,7 +416,6 @@ async function processExporttoCsv(accountname){
             link.click();
 			return 0;
 }
-
 
 async function processExportJournaltoCsv(){
  console.log("Starting Journal Export");
@@ -455,7 +454,7 @@ async function processExportJournaltoCsv(){
 			for (const Account of accounts) {
 				accountname=Account.brokerAccountType;
 				//console.log(Account);
-				result = (await getPurchaisedSecurities(accountname)).payload;
+                result = (await getPurchasedSecurities(accountname)).payload;
 				//console.log(result);
 				console.log("Строк Портфеля ["+accountname+"] :"+parseInt(result.data.length));
 				for (const item of result.data) {

@@ -13,7 +13,8 @@ function etTimeToMsc(time) {
     var AMPM = time.match(/\s(.*)\s/)[1];
     if (AMPM == "PM" && hours < 12) hours = hours + 12;
     if (AMPM == "AM" && hours == 12) hours = hours - 12;
-    hours = (hours + 7) % 24
+    //TODO нет автоперевода часов +8 - костыль
+    hours = (hours + 8) % 24
     var sHours = hours.toString();
     var sMinutes = minutes.toString();
     if (hours < 10) sHours = "0" + sHours;
