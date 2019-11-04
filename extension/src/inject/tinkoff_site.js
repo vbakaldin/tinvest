@@ -283,7 +283,7 @@ async function real_revenue() {
             //cur_count=parseFloat(info.payload.positionTinkoff.currentBalance.value).toFixed(0);
 
             html = "<div class='tinvest-block'>";
-            html += '<div><b class="real_revenue">Реальный заработок : ' + parseFloat(real_revenue_value).toFixed(2) + ' ' + currency + '</b></div>';
+            html += '<div><b class="real_revenue" title="Если продать прямо сейчас">Реальный заработок : ' + parseFloat(real_revenue_value).toFixed(2) + ' ' + currency + '</b></div>';
 
 
             //html += '<div><b class="opened_position">Открытая позиция: ' + cur_count + '</b></div>';
