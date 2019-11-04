@@ -5,6 +5,22 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+function arr_combine_values(arr) {
+    arr.push([])
+    result = [];
+    temp = ''
+    temp_i = 0
+    arr.forEach(function (item, k) {
+        if (temp != item && k != 0) {
+            result.push([temp, temp_i])
+            temp_i = 1;
+        } else {
+            temp_i++
+        }
+        temp = item
+    })
+    return result;
+}
 //https://api.tinkoff.ru/trading/user/operations?sessionId=HpSlKjkaAaHUrhZshVxtkaEl7qgz6BPD.m1-prod-api27
 //https://api.tinkoff.ru/trading/user/operations?sessionId=HpSlKjkaAaHUrhZshVxtkaEl7qgz6BPD.m1-prod-api27
 //https://api.tinkoff.ru/trading/user/operations?tinvest&sessionId
@@ -185,6 +201,9 @@ async function needEarn(revenue, payload, current_ticker) {
 async function calc_real_revenue(payload, history_result, current_ticker) {
     result = 0;
     history_result_sum = 0;
+    history_count = [];
+    sells = [];
+    buys = [];
     //console.log(payload);
     //current_ticker="MSFT";
     //current_ticker = payload.positionTinkoff.ticker;
@@ -205,11 +224,43 @@ async function calc_real_revenue(payload, history_result, current_ticker) {
         //перебираем прошлые сделки
         history_result_sum = history_result.payload.items.reduce(function (sum, item) {
             if (item.status == 'done') {
-                console.log(item.payment, (item.commission || 0))
+
+                //подсчет количества акций по определенной цене
+                if (typeof payload.positionTinkoff != "undefined") {
+                    if (item.operationType == 'Sell') {
+                        for (i = 0; i < item.quantity; i++) {
+                            sells.push(item.price)
+                        }
+                    } else if (item.operationType == 'Buy') {
+                        for (i = 0; i < item.quantity; i++) {
+                            buys.push(item.price)
+                        }
+                    }
+                }
+
+                //console.log(item.payment, (item.commission || 0))
                 return sum + item.payment + (item.commission || 0);
             }
             return sum;
         }, 0)
+
+        //продолжение - подсчет количества акций по определенной цене
+        if (typeof payload.positionTinkoff != "undefined") {
+            sells = sells.reverse();
+            buys = buys.reverse();
+            if (buys.length > sells.length) {
+                buy_bool = true;
+                buys = buys.slice(sells.length)
+                history_count = arr_combine_values(buys);
+                sells = [];
+            } else {
+                sell_bool = true;
+                sells = sells.slice(buys.length)
+                history_count = arr_combine_values(sells);
+
+                buys = [];
+            }
+        }
 
         result = Math.round(history_result_sum);
         //console.log("history_result_sum: "+result);
@@ -223,7 +274,8 @@ async function calc_real_revenue(payload, history_result, current_ticker) {
         }
         //result = parseFloat(result).toFixed(2);
     }
-    return result;
+
+    return {revenue: result, history_count: history_count};
 }
 
 async function real_revenue() {
@@ -237,16 +289,16 @@ async function real_revenue() {
     real_revenue_value = 0;
     if (ticker_regexp !== null) {
         current_ticker = ticker_regexp[1];
-        console.log("Обнаружен Тикер: " + current_ticker);
+        //console.log("Обнаружен Тикер: " + current_ticker);
         info = await getInfo(current_ticker);
 
-        console.log("Info: ");
-        console.log(info);
+        //console.log("Info: ");
         //currency='';
         if (info.payload.hasEvents) {
             real_revenue_value = 0;
             currentBalance = 0;
-            real_revenue_value = await calc_real_revenue(info.payload, null, current_ticker);
+            real_revenue_object = await calc_real_revenue(info.payload, null, current_ticker);
+            real_revenue_value = real_revenue_object.revenue
             if (info.payload.positionTinkoff) {
                 currency = info.payload.positionTinkoff.currentAmount.currency.toString();
                 if (!currency) {
@@ -283,7 +335,7 @@ async function real_revenue() {
             //cur_count=parseFloat(info.payload.positionTinkoff.currentBalance.value).toFixed(0);
 
             html = "<div class='tinvest-block'>";
-            html += '<div><b class="real_revenue" title="Если продать прямо сейчас">Реальный заработок : ' + parseFloat(real_revenue_value).toFixed(2) + ' ' + currency + '</b></div>';
+            html += '<div><b class="real_revenue" title="Если продать всё и прямо сейчас">Реальный заработок : ' + parseFloat(real_revenue_value).toFixed(2) + ' ' + currency + '</b></div>';
 
 
             //html += '<div><b class="opened_position">Открытая позиция: ' + cur_count + '</b></div>';
@@ -305,9 +357,29 @@ async function real_revenue() {
                 }
             }
 
+
+            if (real_revenue_object.history_count.length > 0) {
+                head_block = document.querySelector("div[data-qa-file=StockPure]")
+                count_block = document.querySelector(".tinvest-count_stocks")
+                stocks_count_html = '<table class="tinvest-count_stocks"><tr><th>Цена</th><th>Количество</th></tr>';
+                real_revenue_object.history_count.forEach(function (item) {
+                    stocks_count_html += "<tr><td>" + item[0] + "</td><td>" + item[1] + "</td></tr>"
+                })
+                stocks_count_html += '</table>'
+
+
+                if (count_block) {
+                    count_block.outerHTML = stocks_count_html
+                } else {
+                    head_block = document.querySelector("div[data-qa-file=StockPure]")
+                    if (head_block) {
+                        head_block.insertAdjacentHTML('afterend', stocks_count_html);
+                    }
+                }
+            }
         }
     }
-    console
+
     if (real_revenue_value < 0) {
         document.body.classList.remove('good-revenue');
         document.body.classList.add('bad-revenue');
@@ -402,6 +474,7 @@ async function processExportToCsv(accountname) {
         if (item.securityType == 'Stock') {
             //console.log(item.ticker);
             real_revenue_value = await calc_real_revenue(null, null, item.ticker);
+            real_revenue_value = real_revenue_value.revenue
             real_revenue_value = parseFloat(real_revenue_value).toFixed(2);
             if (real_revenue_value < 0 && item.currentBalance > 0) {
                 need_earn = await needEarn(real_revenue_value, null, item.ticker);
@@ -435,10 +508,10 @@ async function processExportToCsv(accountname) {
 }
 
 async function processExportJournaltoCsv() {
-    console.log("Starting Journal Export");
+    //console.log("Starting Journal Export");
 
     result = await getFullHistory();
-    console.log("Строк журнала: " + parseInt(result.payload.items.length));
+    //console.log("Строк журнала: " + parseInt(result.payload.items.length));
     csv_arr = [['ID', 'Счет', 'Тикер', 'Валюта', 'Дата', 'Тип операции', 'Тип инструмента', 'MarginCall?', 'Сумма', 'Цена', 'Количество', 'Количество Остаток', 'Комиссия', 'Валюта Комиссии', 'Комиссия в руб']];
     //console.log(result.payload.items);
     for (const item of result.payload.items) {
@@ -472,7 +545,7 @@ async function processExportJournaltoCsv() {
         //console.log(Account);
         result = (await getPurchasedSecurities(accountname)).payload;
         //console.log(result);
-        console.log("Строк Портфеля [" + accountname + "] :" + parseInt(result.data.length));
+        //console.log("Строк Портфеля [" + accountname + "] :" + parseInt(result.data.length));
         for (const item of result.data) {
             csv_arr.push([0,
                 accountname,
@@ -504,7 +577,7 @@ async function processExportJournaltoCsv() {
         csvContent += row + "\r\n";
         row_count += 1;
     });
-    console.log("Обработано строк: " + parseInt(row_count));
+    //console.log("Обработано строк: " + parseInt(row_count));
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", csvContent_header + encodedUri);
@@ -541,7 +614,9 @@ async function exportJournalToCsv() {
 if (window.location.host == 'www.tinkoff.ru') {
     style_arr = [
         '.bad-revenue{background-color: rgba(255, 0, 0, 0.05);}',
-        '.good-revenue{background-color: rgba(0, 255, 0, 0.05);}'
+        '.good-revenue{background-color: rgba(0, 255, 0, 0.05);}',
+        '.tinvest-count_stocks {margin-bottom:25px; width:100%;border-collapse: collapse;color:#333;text-align: center;}',
+        '.tinvest-count_stocks th, .tinvest-count_stocks td {padding:5px 0;border-bottom: 1px solid #ddd;}'
     ];
 
     style_arr.forEach(function (style) {
