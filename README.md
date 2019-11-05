@@ -27,3 +27,8 @@ __Расширение может не работать с ИИС__
 
 
 _Ваши благодарности можете отправлять на карту 4377 7237 4316 6666 :-)_
+
+
+[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png)
+[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png)
+[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png)
