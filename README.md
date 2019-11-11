@@ -32,3 +32,10 @@ _Ваши благодарности можете отправлять на ка
 [<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png)
 [<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png)
 [<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png)
+
+# Roadmap
+- получение всех доступных тикеров и кэширование их
+- рефакторинг: вынос css во внешние файлы
+- настройки расширения: откуда брать графики, обновление тикеров вручную
+- получение всех бумаг, которыми торговали+историческая доходность
+- рефакторинг: вынос функций в подфайлы, сборки с помощью npm
