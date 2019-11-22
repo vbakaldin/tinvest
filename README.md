@@ -1,5 +1,6 @@
 # Tinvest
 
+##Как установить?
 1. скачать https://github.com/DaaGER/tinvest/archive/master.zip
 2. распаковать
 3. перейти в chrome://extensions/ или меню->дополнительные инструменты->расширения
@@ -8,7 +9,16 @@
 6. выбрать папку extension
 7. вы прекрасны
 
-# Что умеет?
+##Как обновить?
+1. скачать https://github.com/DaaGER/tinvest/archive/master.zip
+2. распаковать
+3. перейти в chrome://extensions/ или меню->дополнительные инструменты->расширения
+4. в блоке расшрения будет кнопка "обновить"(стрелка)
+
+##Почему не полноценное расширение из магазина Google?
+Они проверяют __очень__ медленно. Но главное это то, что можно самому глазками посмотреть код и не бояться автообновления с вредоносным кодом.
+
+## Что умеет?
 __Расширение может некорректно работать с ИИС__
 - earningswhispers
   - рядом со временем по США, показывает время по МСК.
@@ -33,9 +43,10 @@ _Ваши благодарности можете отправлять на ка
 [<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png)
 [<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png)
 
-# Roadmap
+## Roadmap
 - получение всех доступных тикеров и кэширование их
 - кэширование доступных счетов
+- дивидендный календарь
 - ссылки на https://ru.tradingview.com/chart?symbol=AMD
 - рефакторинг: вынос css во внешние файлы
 - настройки расширения: откуда брать графики, обновление тикеров вручную
