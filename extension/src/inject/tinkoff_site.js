@@ -238,7 +238,7 @@ async function calc_real_revenue(payload, history_result, current_ticker) {
                     }
                 }
 
-                //console.log(item.payment, (item.commission || 0))
+                console.log(item.payment, (item.commission || 0))
                 return sum + item.payment + (item.commission || 0);
             }
             return sum;

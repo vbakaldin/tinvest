@@ -24,6 +24,8 @@ __Расширение может некорректно работать с И�
   - рядом со временем по США, показывает время по МСК.
   - выводит график за текущий год при наведении на тикер
   - подсветка тикеров доступных в Тине
+- finviz
+  - подсветка тикеров доступных в Тине на странице скринера
 - терминал Tinkoff
   - в выпадающем списке тикеров, по enter выбирается первая
 - сайт Tinkoff
@@ -40,6 +42,7 @@ _Ваши благодарности можете отправлять на ка
 
 
 [<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png)
+[<img width="640" alt="fv" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/fv.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/fv.png)
 [<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png)
 [<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png)
 
