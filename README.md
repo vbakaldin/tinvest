@@ -3,6 +3,12 @@
 ## Отблагодарить автора
 https://www.tinkoff.ru/sl/9OxmTtm3nik
 
+
+[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png)
+[<img width="640" alt="fv" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/fv.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/fv.png)
+[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png)
+[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png)
+
 ## Как установить?
 1. скачать https://github.com/DaaGER/tinvest/archive/master.zip
 2. распаковать
@@ -39,11 +45,6 @@ __Расширение может некорректно работать с И�
   - экспорт всех сделок в CSV
   - таблица с информацией какие акции и за сколько, которые вы покупали, у вас остались сейчас(из-за принципа FIFO, продается акции купленные раньше и вы можете фиксировать убыток, считая наоборот)
 
-
-[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/ew.png)
-[<img width="640" alt="fv" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/fv.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/fv.png)
-[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin1.png)
-[<img width="640" alt="ew" src="https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png">](https://raw.githubusercontent.com/DaaGER/tinvest/master/_images/tin2.png)
 
 ## Roadmap
 - получение всех доступных тикеров и кэширование их
