@@ -69,7 +69,7 @@ if (window.location.host == 'www.earningswhispers.com') {
         document.body.insertAdjacentHTML("afterbegin", "<style>" + style + "</style>")
     })
 
-    $hidden = '<div id="hide-show_non_tinkoff"><label><input type="checkbox"' + (hidden ? 'CHECKED' : '') + '>Скрыть тикеры не доступные в Тинькофф</label></div>';
+    $hidden = '<div id="hide-show_non_tinkoff"><label><input type="checkbox"' + (hidden ? 'CHECKED' : '') + '>Скрыть тикеры недоступные в Тинькофф</label></div>';
     document.getElementById('calheading').insertAdjacentHTML('afterend', $hidden);
 
     document.querySelector('#hide-show_non_tinkoff input').onchange = function () {
