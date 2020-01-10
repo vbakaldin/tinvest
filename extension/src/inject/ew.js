@@ -43,19 +43,38 @@ function markTinTicker() {
     })
 
 }
+
 style_arr = [
     '@media only screen and (min-width: 62em) {.listview .estimate {left: 425px;} .listview .time {left: 285px;}}',
     '@media only screen and (min-width: 48em) {.listview .estimate {left: 400px;} .listview .time {left: 270px;}}',
     'div#graph_block {position:fixed;border: 3px solid black;top: 554px;left: 204px;z-index: 1;}',
     '.unselectedoptions { width: auto !important}',
-    '.tinvest-tinkoff-ticker {color: #ffff00 !important; text-shadow: 0 0 2px black;}'
+    '.tinvest-tinkoff-ticker {color: #ffff00 !important; text-shadow: 0 0 2px black;}',
+    '#hide-show_non_tinkoff{position: absolute;left: 50px;} #hide-show_non_tinkoff input{visibility: visible;}',
+    "li.nwh {counter-increment: my-awesome-counter;}li.nwh::before {content: counter(my-awesome-counter); position:absolute;top:5px;color:grey}"
 ];
 
+var hidden = false;
+
+function hideShowNonTinkoff() {
+    els = document.querySelectorAll(".ticker:not(.tinvest-tinkoff-ticker)")
+    els.forEach(function (element) {
+        element.parentNode.parentNode.style.display = hidden ? '' : 'none';
+    })
+    hidden = !hidden;
+}
 
 if (window.location.host == 'www.earningswhispers.com') {
     style_arr.forEach(function (style) {
         document.body.insertAdjacentHTML("afterbegin", "<style>" + style + "</style>")
     })
+
+    $hidden = '<div id="hide-show_non_tinkoff"><label><input type="checkbox"' + (hidden ? 'CHECKED' : '') + '>Скрыть тикеры не доступные в Тинькофф</label></div>';
+    document.getElementById('calheading').insertAdjacentHTML('afterend', $hidden);
+
+    document.querySelector('#hide-show_non_tinkoff input').onchange = function () {
+        hideShowNonTinkoff()
+    }
 
     updateTime();
     markTinTicker();
