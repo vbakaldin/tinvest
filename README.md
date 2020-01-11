@@ -67,3 +67,6 @@ tinvest@daager.ru
 
 ## Отблагодарить автора, если этого не сделали
 https://www.tinkoff.ru/sl/9OxmTtm3nik
+
+
+https://chrome.google.com/webstore/detail/tinvest/falfbeockhpemaahbiafjphboeccldbf
