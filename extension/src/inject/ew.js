@@ -64,7 +64,7 @@ function hideShowNonTinkoff() {
     hidden = !hidden;
 }
 
-if (window.location.host == 'www.earningswhispers.com') {
+if (window.location.host.replace('www.', '') == 'earningswhispers.com') {
     style_arr.forEach(function (style) {
         document.body.insertAdjacentHTML("afterbegin", "<style>" + style + "</style>")
     })

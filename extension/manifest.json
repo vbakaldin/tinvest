@@ -1,6 +1,6 @@
 {
   "name": "Tinvest",
-  "version": "0.13.16",
+  "version": "0.13.18",
   "manifest_version": 2,
   "description": "",
   "homepage_url": "https://t.me/million_fonda",
@@ -14,17 +14,17 @@
     "default_icon": "icons/icon19.png"
   },
   "permissions": [
-    "https://www.earningswhispers.com/*",
-    "https://www.tinkoff.ru/invest-terminal/*",
-    "https://finviz.com/screener.ashx*"
+    "https://*.earningswhispers.com/*",
+    "https://*.tinkoff.ru/invest-terminal/*",
+    "https://*.finviz.com/screener.ashx*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://www.earningswhispers.com/*",
-        "https://www.tinkoff.ru/invest-terminal/*",
-        "https://www.tinkoff.ru/invest/*",
-        "https://finviz.com/screener.ashx*"
+        "https://*.earningswhispers.com/*",
+        "https://*.tinkoff.ru/invest-terminal/*",
+        "https://*.tinkoff.ru/invest/*",
+        "https://*.finviz.com/screener.ashx*"
       ],
       "js": [
         "src/inject/ew.js",

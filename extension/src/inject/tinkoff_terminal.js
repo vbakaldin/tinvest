@@ -1,5 +1,5 @@
 window.onload = function () {
-    if (window.location.host == 'www.tinkoff.ru') {
+    if (window.location.host.replace('www.', '') == 'tinkoff.ru') {
         document.onkeypress = function (e) {
             var e = e || window.event, input = e.target || el.srcElement;
             if (e.keyCode == 13 && input.tagName == 'INPUT' && input.classList.contains('pt-input')) {

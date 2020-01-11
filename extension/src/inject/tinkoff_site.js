@@ -611,7 +611,7 @@ async function exportJournalToCsv() {
 }
 
 
-if (window.location.host == 'www.tinkoff.ru') {
+if (window.location.host.replace('www.', '') == 'tinkoff.ru') {
     style_arr = [
         '.bad-revenue{background-color: rgba(255, 0, 0, 0.05);}',
         '.good-revenue{background-color: rgba(0, 255, 0, 0.05);}',

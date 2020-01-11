@@ -14,7 +14,7 @@ style_arr = [
 ];
 
 
-if (window.location.host == 'finviz.com') {
+if (window.location.host.replace('www.', '') == 'finviz.com') {
     style_arr.forEach(function (style) {
         document.body.insertAdjacentHTML("afterbegin", "<style>" + style + "</style>")
     })
