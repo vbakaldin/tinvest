@@ -33,7 +33,7 @@ function readtickers() {
 	for (var i = 0; i < list.length; i++) {
 		tickers.push(list[i].innerHTML);
 	};
-	console.log(String(tickers))
+	console.log(tickers.join(','))
 };
 readtickers();
 
@@ -48,3 +48,21 @@ a2 = str.split(',');
 console.log(a2.length);
 
 a1.filter(i => !a2.includes(i)).concat(a2.filter(i => !a1.includes(i)));
+
+
+
+let tickers = [];
+for (let i = 2; i < 1000; i++) {
+	try {
+		let row = document.getElementById('epscalendar').childNodes[i].nextSibling.childNodes[0];
+		let ticker = row.getElementsByClassName('ticker tinvest-tinkoff-ticker');
+		let company = row.getElementsByClassName('company');
+		let time = row.getElementsByClassName('time updated');
+		let revgrowthprint = row.getElementsByClassName('revgrowthprint');
+		tickers.push(ticker[0].innerHTML + ',' + company[0].innerHTML.replace(/[,]/g, ' ') + ',' + time[0].innerHTML + ',' + revgrowthprint[0].innerHTML);
+	}
+	catch (err) {
+	}
+	finally {
+	}
+} console.log(tickers.join('\n'))

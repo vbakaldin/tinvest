@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\extension",
+    "\\extension\\src",
+    "\\extension\\src\\inject"
   ],
+  "SelectedNode": "\\extension\\src\\inject\\ew.js",
   "PreviewInSolutionExplorer": false
 }
