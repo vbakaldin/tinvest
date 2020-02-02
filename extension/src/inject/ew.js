@@ -38,11 +38,11 @@ function markTinTicker() {
     tickers = str.split(',');
 
     document.querySelectorAll(".ticker:not(.tinvest-tinkoff-ticker), #mainticker:not(.tinvest-tinkoff-ticker)").forEach(function (item) {
+        item.setAttribute("onclick", "javascript:location.href='https://tradingview.com/chart?symbol=" + item.textContent + "'");
         if (tickers.indexOf(item.textContent) !== -1) {
-            item.classList.add('tinvest-tinkoff-ticker')
+            item.classList.add('tinvest-tinkoff-ticker');
         }
     })
-
 }
 
 style_arr = [
